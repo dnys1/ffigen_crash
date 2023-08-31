@@ -1,0 +1,26 @@
+name: NativeMacOsFramework
+description: |
+  Bindings for Foundation and supporting frameworks (AppKit/IOKit).
+
+  Regenerate bindings with `dart run ffigen --config=ffigen.yaml`.
+language: "objc"
+output: "lib/macos_bindings.g.dart"
+compiler-opts:
+  - "-F/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
+headers:
+  entry-points:
+    - "/System/Volumes/Data/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AppKit.framework/Versions/C/Headers/NSScreen.h"
+preamble: |
+  // ignore_for_file: type=lint
+  // ignore_for_file: return_of_invalid_type
+comments:
+  style: any
+  length: full
+
+exclude-all-by-default: true
+objc-interfaces:
+  include:
+    - NSScreen
+  rename:
+    # Removes '_' prefix from interface names.
+    "_(.*)": "$1"
